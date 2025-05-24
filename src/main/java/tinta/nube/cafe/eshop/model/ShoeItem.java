@@ -14,11 +14,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class JournalItem {
+public class ShoeItem {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String coverType;
-    private String model;
+    private Number size;
+    private String gender;
 }

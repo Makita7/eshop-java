@@ -2,8 +2,8 @@ package tinta.nube.cafe.eshop.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import tinta.nube.cafe.eshop.model.JournalItem;
+import tinta.nube.cafe.eshop.model.ShoeItem;
 
 @Repository
-public interface JournalRepository extends JpaRepository<JournalItem, Long> {
+public interface ShoesStoreRepository extends JpaRepository<ShoeItem, Long> {
 }
