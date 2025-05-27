@@ -1,37 +1,41 @@
 package tinta.nube.cafe.eshop.rest;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import tinta.nube.cafe.eshop.dto.ShoeDTO;
+import tinta.nube.cafe.eshop.dto.request.ShoeRequestDTO;
+import tinta.nube.cafe.eshop.service.ShoeServiceImpl;
 import tinta.nube.cafe.eshop.service.ShoesService;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/shoes")
 @CrossOrigin(origins = "http://localhost:9090")
+@RequiredArgsConstructor
 public class ShoesRestController {
+private final ShoesService shoesService;
 
     @GetMapping("/{id}")
-    public List<ShoeDTO> getShoeItem(@PathVariable Long id){
-        return ShoesService.getShoe(id);
+    public ShoeRequestDTO getShoe(@PathVariable UUID id){
+        return shoesService.getShoe(id);
     }
 
     @PostMapping
-    public ShoeDTO saveShoe(@RequestBody ShoeDTO newShoe){
-        return ShoesService.addShoe(newShow);
+    public ShoeRequestDTO saveShoe(@RequestBody ShoeRequestDTO newShoe){
+        return shoesService.addShoe(newShoe);
     }
 
-    @PatchMapping("/{id}")
-    public ShoeDTO updateShoe(@PathVariable Long id, @RequestBody ShoeDTO ShoeItem){
-        ShoeItem.setId(id);
-        return ShoesService.updateShoe(ShoeItem);
+    @PatchMapping
+    public ShoeRequestDTO updateShoe(@RequestBody ShoeRequestDTO shoeItem){
+        return shoesService.updateShoe(shoeItem);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteShoeById(@PathVariable Long id){
-        return ShoesService.deleteShoe(id);
+    public void deleteShoeById(@PathVariable UUID id){
+        shoesService.deleteShoe(id);
     }
 
 }

@@ -1,12 +1,14 @@
 package tinta.nube.cafe.eshop.service;
 
-import tinta.nube.cafe.eshop.dto.ShoeDTO;
+import tinta.nube.cafe.eshop.dto.request.ShoeRequestDTO;
+
+import java.util.UUID;
 
 public interface ShoesService {
 
-    ShoeDTO getShoe();
-    ShoeDTO addShoe(ShoeDTO ShoeItem);
-    void deleteShoe(Long id);
-    ShoeDTO updateShoe(ShoeDTO ShoeItem);
+    ShoeRequestDTO getShoe(UUID id);
+    ShoeRequestDTO addShoe(ShoeRequestDTO ShoeItem);
+    void deleteShoe(UUID id);
+    ShoeRequestDTO updateShoe(ShoeRequestDTO ShoeItem);
 
 }
