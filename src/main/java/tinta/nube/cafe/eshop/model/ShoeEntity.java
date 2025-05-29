@@ -16,6 +16,6 @@ public class ShoeEntity {
     @GeneratedValue( strategy = GenerationType.UUID)
     private UUID id;
     private String name;
-    private Number size;
+    private Short size;
     private String gender;
 }
