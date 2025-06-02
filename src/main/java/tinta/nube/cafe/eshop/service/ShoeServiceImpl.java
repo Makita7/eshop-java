@@ -57,7 +57,7 @@ public class ShoeServiceImpl implements ShoesService {
                 .build();
     }
 
-    private boolean validateShoeRequest(ShoeRequestDTO shoeRequestDTO, Boolean isCreation) throws Exception {
+    private boolean validate ShoeRequest(ShoeRequestDTO shoeRequestDTO, Boolean isCreation) throws Exception {
         if(ObjectUtils.isEmpty(shoeRequestDTO.getName())){
             throw new Exception("Name must not be empty");
         }
