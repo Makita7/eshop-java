@@ -44,7 +44,7 @@ public class ShoesRestController {
     }
 
     //TODO Implement Pagination with Pageable as controller parameter passing it through layers up to repository layer using
-    //findAll(Pageable pageable) method (built-in function)
+    // findAll(Pageable pageable) method (built-in function)
 
 
 }
