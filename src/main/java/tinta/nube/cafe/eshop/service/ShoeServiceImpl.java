@@ -1,14 +1,17 @@
 package tinta.nube.cafe.eshop.service;
 
-import lombok.RequiredArgsConstructor;
+import java.util.UUID;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+
+import lombok.RequiredArgsConstructor;
 import tinta.nube.cafe.eshop.dto.request.ShoeRequestDTO;
 import tinta.nube.cafe.eshop.dto.response.ShoeResponseDTO;
+import tinta.nube.cafe.eshop.error.EShopCustomException;
 import tinta.nube.cafe.eshop.model.ShoeEntity;
 import tinta.nube.cafe.eshop.repository.ShoesStoreRepository;
-
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -16,11 +19,10 @@ public class ShoeServiceImpl implements ShoesService {
 
     private final ShoesStoreRepository shoeRepository;
 
-    //getReferenceById
     @Override
     public ShoeResponseDTO getShoe(UUID id) {
         ShoeEntity shoeEntity = shoeRepository.getReferenceById(id);
-
+        shoeRepository.
         return ShoeResponseDTO
                 .builder()
                 .name(shoeEntity.getName())
@@ -33,11 +35,7 @@ public class ShoeServiceImpl implements ShoesService {
     @Override
     public ShoeResponseDTO addShoe(ShoeRequestDTO shoeRequestDTO) {
 
-        try {
-            validateShoeRequest(shoeRequestDTO, true);
-        } catch (Exception e){
-            return ShoeResponseDTO.builder().build();
-        }
+        validateShoeRequest(shoeRequestDTO, true);
 
         ShoeEntity newShoe = ShoeEntity
                 .builder()
@@ -57,19 +55,23 @@ public class ShoeServiceImpl implements ShoesService {
                 .build();
     }
 
-    private boolean validate ShoeRequest(ShoeRequestDTO shoeRequestDTO, Boolean isCreation) throws Exception {
+    private void validateShoeRequest(ShoeRequestDTO shoeRequestDTO, Boolean isCreation) {
         if(ObjectUtils.isEmpty(shoeRequestDTO.getName())){
-            throw new Exception("Name must not be empty");
+            throw new RuntimeException("Name must not be empty");
         }
         if(!isCreation && shoeRequestDTO.getId() == null){
-            throw new Exception("Id can't be null");
+            throw new RuntimeException("Id can't be null");
         }
         if (shoeRequestDTO.getSize() == null){
-            throw new Exception("Size cannot be null");
+            throw new RuntimeException("Size cannot be null");
         }
-        if(shoeRequestDTO.getGender() == null){
-            throw new Exception("Gender cannot be null");
+        if(shoeRequestDTO.getGender() == null) {
+            throw new RuntimeException("Gender cannot be null");
         }
+        /*if (ObjectUtils.isEmpty(shoeRequestDTO.getName()) || (!isCreation && shoeRequestDTO.getId() == null)
+              || shoeRequestDTO.getSize() == null || shoeRequestDTO.getGender() == null) {
+            throw new EShopCustomException("Error validating show creation input", "Check your provide data", "", HttpStatus.BAD_REQUEST);
+        }*/
     }
 
     //delete
@@ -80,6 +82,9 @@ public class ShoeServiceImpl implements ShoesService {
 
     @Override
     public ShoeResponseDTO updateShoe(ShoeRequestDTO shoeItem) {
+
+        validateShoeRequest(shoeItem, false);
+
         ShoeEntity shoeEntity = ShoeEntity
                 .builder()
                 .id(shoeItem.getId())

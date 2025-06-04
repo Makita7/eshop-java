@@ -8,4 +8,6 @@ import java.util.UUID;
 
 @Repository
 public interface ShoesStoreRepository extends JpaRepository<ShoeEntity, UUID> {
+
+
 }
