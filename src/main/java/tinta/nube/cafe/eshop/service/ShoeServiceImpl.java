@@ -22,7 +22,7 @@ public class ShoeServiceImpl implements ShoesService {
     @Override
     public ShoeResponseDTO getShoe(UUID id) {
         ShoeEntity shoeEntity = shoeRepository.getReferenceById(id);
-        shoeRepository.
+
         return ShoeResponseDTO
                 .builder()
                 .name(shoeEntity.getName())
