@@ -2,6 +2,8 @@ package tinta.nube.cafe.eshop.service;
 
 import java.util.UUID;
 
+import org.h2.mvstore.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -102,5 +104,10 @@ public class ShoeServiceImpl implements ShoesService {
                 .size(updatedShoe.getSize())
                 .gender(updatedShoe.getGender())
                 .build();
+    }
+
+    @Override
+    public Page<ShoeResponseDTO> findAll(Pageable pageable) {
+        return shoeRepository.findAll(pageable);
     }
 }
