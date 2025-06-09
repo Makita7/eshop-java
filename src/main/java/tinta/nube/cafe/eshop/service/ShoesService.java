@@ -1,5 +1,7 @@
 package tinta.nube.cafe.eshop.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import tinta.nube.cafe.eshop.dto.request.ShoeRequestDTO;
 import tinta.nube.cafe.eshop.dto.response.ShoeResponseDTO;
 
@@ -11,5 +13,5 @@ public interface ShoesService {
     ShoeResponseDTO addShoe(ShoeRequestDTO ShoeItem);
     void deleteShoe(UUID id);
     ShoeResponseDTO updateShoe(ShoeRequestDTO ShoeItem);
-
+    Page<ShoeResponseDTO> findAll(Pageable pageable);
 }
