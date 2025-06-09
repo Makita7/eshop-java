@@ -1,25 +1,25 @@
 package tinta.nube.cafe.eshop.service;
 
+import java.util.List;
 import java.util.UUID;
 
-import org.h2.mvstore.Page;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import lombok.RequiredArgsConstructor;
 import tinta.nube.cafe.eshop.dto.request.ShoeRequestDTO;
 import tinta.nube.cafe.eshop.dto.response.ShoeResponseDTO;
-import tinta.nube.cafe.eshop.error.EShopCustomException;
 import tinta.nube.cafe.eshop.model.ShoeEntity;
-import tinta.nube.cafe.eshop.repository.ShoesStoreRepository;
+import tinta.nube.cafe.eshop.repository.ShoesRepository;
 
 @Service
 @RequiredArgsConstructor
 public class ShoeServiceImpl implements ShoesService {
 
-    private final ShoesStoreRepository shoeRepository;
+    private final ShoesRepository shoeRepository;
 
     @Override
     public ShoeResponseDTO getShoe(UUID id) {
@@ -108,6 +108,18 @@ public class ShoeServiceImpl implements ShoesService {
 
     @Override
     public Page<ShoeResponseDTO> findAll(Pageable pageable) {
-        return shoeRepository.findAll(pageable);
+        Page<ShoeEntity> shoePage = shoeRepository.findAll(pageable);
+        List<ShoeResponseDTO> shoeDtoItems = shoePage
+              .stream()
+              .map(shoeEntity -> ShoeResponseDTO
+                    .builder()
+                    .id(shoeEntity.getId())
+                    .name(shoeEntity.getName())
+                    .size(shoeEntity.getSize())
+                    .gender(shoeEntity.getGender())
+                    .build())
+              .toList();
+        return new PageImpl<>(shoeDtoItems, pageable, shoePage.getTotalElements());
     }
+
 }

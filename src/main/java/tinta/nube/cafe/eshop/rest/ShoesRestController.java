@@ -2,8 +2,8 @@ package tinta.nube.cafe.eshop.rest;
 
 
 import lombok.RequiredArgsConstructor;
-import org.h2.mvstore.Page;
-import org.springframework.data.domain.PageRequest;
+
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,17 +47,9 @@ public class ShoesRestController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ShoeResponseDTO>> findAll(
-        @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "10") int size
-    ) {
-        Pageable pageable = PageRequest.of(page, size);
+    public ResponseEntity<Page<ShoeResponseDTO>> findAll(Pageable pageable) {
         Page<ShoeResponseDTO> shoes = shoesService.findAll(pageable);
         return ResponseEntity.ok(shoes);
     }
-
-    //TODO Implement Pagination with Pageable as controller parameter passing it through layers up to repository layer using
-    // findAll(Pageable pageable) method (built-in function)
-
 
 }
