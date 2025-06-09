@@ -42,9 +42,4 @@ public class ShoesRestController {
         shoesService.deleteShoe(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-    //TODO Implement Pagination with Pageable as controller parameter passing it through layers up to repository layer using
-    // findAll(Pageable pageable) method (built-in function)
-
-
 }

@@ -2,14 +2,12 @@ package tinta.nube.cafe.eshop.service;
 
 import java.util.UUID;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import lombok.RequiredArgsConstructor;
 import tinta.nube.cafe.eshop.dto.request.ShoeRequestDTO;
 import tinta.nube.cafe.eshop.dto.response.ShoeResponseDTO;
-import tinta.nube.cafe.eshop.error.EShopCustomException;
 import tinta.nube.cafe.eshop.model.ShoeEntity;
 import tinta.nube.cafe.eshop.repository.ShoesStoreRepository;
 
