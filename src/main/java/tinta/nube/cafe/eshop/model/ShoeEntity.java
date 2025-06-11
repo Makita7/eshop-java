@@ -3,6 +3,7 @@ package tinta.nube.cafe.eshop.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity(name = "SHOES")
@@ -18,4 +19,7 @@ public class ShoeEntity {
     private String name;
     private Short size;
     private String gender;
+
+    @ManyToMany
+    private List<CartEntity> carts;
 }

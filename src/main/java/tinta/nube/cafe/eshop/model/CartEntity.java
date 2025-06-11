@@ -1,13 +1,16 @@
 package tinta.nube.cafe.eshop.model;
 
+import java.util.UUID;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.*;
-
-import java.util.List;
-import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity(name = "CART")
 @Getter
@@ -21,8 +24,13 @@ public class CartEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private String clientId;
+    private UUID clientId;
 
-    private List<ShoeEntity> selectedProducts;
+    /*@ManyToMany
+    @JoinTable(name = "CART_PRODUCTS",
+          joinColumns = { @JoinColumn(name = "cart_id") },
+          inverseJoinColumns = { @JoinColumn(name = "shoe_id") }
+    )*/
+   // private List<ShoeEntity> selectedProducts;
 
 }
