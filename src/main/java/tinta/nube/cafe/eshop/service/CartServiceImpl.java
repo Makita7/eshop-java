@@ -9,6 +9,7 @@ import tinta.nube.cafe.eshop.repository.CartRepository;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -17,17 +18,16 @@ public class CartServiceImpl implements CartService{
     private final CartRepository cartRepository;
 
     @Override
-    public CartResponseDTO getCartByClientId(UUID cartId){
+    public List<CartResponseDTO> getCartByClientId(UUID cartId){
         List<CartProductsEntity> filteredCart = cartRepository.getCartList(cartId);
 
-        //TODO map filteredCart to a list of CartResponseDTO and return it
-        //TODO add product quantity to product dto
-
-        return CartResponseDTO.builder()
-                .id(filteredCart.getId())
-                .clientId(filteredCart.getClientId())
-                .selectedProducts(filteredCart.getSelectedProducts())
-                .build();
+        return (List<CartResponseDTO>) filteredCart.stream().map(product -> CartResponseDTO.builder()
+                .id(product.getId())
+                .clientId(product.getClientEntity().getId())
+                .selectedProducts(product.getShoeEntity().getId())
+                .quantity(product.getQuantity())
+                .build())
+            .collect(Collectors.toList());
     }
 
 }

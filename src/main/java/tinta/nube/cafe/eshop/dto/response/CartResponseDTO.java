@@ -14,4 +14,6 @@ public class CartResponseDTO {
     private UUID clientId;
 
     private List<ShoeResponseDTO> selectedProducts;
+
+    private Integer quantity;
 }

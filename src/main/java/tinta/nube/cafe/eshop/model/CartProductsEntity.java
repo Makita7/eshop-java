@@ -38,4 +38,6 @@ public class CartProductsEntity {
    @JoinColumn(name = "cart_id")
    private CartEntity cartEntity;
 
+   private Integer quantity;
+
 }
