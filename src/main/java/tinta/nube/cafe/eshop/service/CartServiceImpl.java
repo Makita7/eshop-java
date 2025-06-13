@@ -18,10 +18,10 @@ public class CartServiceImpl implements CartService{
     private final CartRepository cartRepository;
 
     @Override
-    public List<CartResponseDTO> getCartByClientId(UUID cartId){
+    public CartResponseDTO getCartByClientId(UUID cartId){
         List<CartProductsEntity> filteredCart = cartRepository.getCartList(cartId);
 
-        return (List<CartResponseDTO>) filteredCart.stream().map(product -> CartResponseDTO.builder()
+        return filteredCart.stream().map(product -> CartResponseDTO.builder()
                 .id(product.getId())
                 .clientId(product.getClientEntity().getId())
                 .selectedProducts(product.getShoeEntity().getId())
